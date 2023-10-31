@@ -7,18 +7,23 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build",
     "start": "node build/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0",
     "@types/node": "20.8.9",
+    "eslint": "8.52.0",
     "tsup": "7.2.0",
     "tsx": "3.14.0",
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "fastify": "4.24.3"
+    "dotenv": "16.3.1",
+    "fastify": "4.24.3",
+    "zod": "3.22.4"
   }
 }
