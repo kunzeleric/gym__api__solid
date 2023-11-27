@@ -5,7 +5,7 @@ Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
 ## Requisitos Funcionais
 
 - [x] Deve ser possível cadastrar usuário;
-- [ ] Deve ser possível autenticar usuário;
+- [x] Deve ser possível autenticar usuário;
 - [ ] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [ ] Deve ser possível obter o histórico de check-ins de um usuário;
@@ -25,7 +25,7 @@ Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
 ## Regras de Negócio
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [ ] O usuário não pode fazer 2 check-ins no mesmo dia;
+- [x] O usuário não pode fazer 2 check-ins no mesmo dia;
 - [ ] O usuário não pode fazer check-in se não estiver perto da academia (100m);
 - [ ] O check-in só pode ser validado em até 20 minutos após criado;
 - [ ] O check-in só pode ser validado por administradores;
