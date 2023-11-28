@@ -6,12 +6,12 @@ Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
 
 - [x] Deve ser possível cadastrar usuário;
 - [x] Deve ser possível autenticar usuário;
-- [ ] Deve ser possível obter o perfil de um usuário logado;
+- [x] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [ ] Deve ser possível obter o histórico de check-ins de um usuário;
 - [ ] Deve ser possível buscar academias próximas do usuário;
 - [ ] Deve ser possível buscar academias pelo nome;
-- [ ] Deve ser possível o usuário realizar check-in em uma academia;
+- [x] Deve ser possível o usuário realizar check-in em uma academia;
 - [ ] Deve ser possível validar o check-in de um usuário;
 - [ ] Deve ser possível cadastrar uma academia;
 
