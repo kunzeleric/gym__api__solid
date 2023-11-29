@@ -13,7 +13,7 @@ Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
 - [ ] Deve ser possível buscar academias pelo nome;
 - [x] Deve ser possível o usuário realizar check-in em uma academia;
 - [ ] Deve ser possível validar o check-in de um usuário;
-- [ ] Deve ser possível cadastrar uma academia;
+- [x] Deve ser possível cadastrar uma academia;
 
 ## Requisitos Não Funcionais
 
@@ -26,7 +26,7 @@ Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
 - [x] O usuário não pode fazer 2 check-ins no mesmo dia;
-- [ ] O usuário não pode fazer check-in se não estiver perto da academia (100m);
+- [x] O usuário não pode fazer check-in se não estiver perto da academia (100m);
 - [ ] O check-in só pode ser validado em até 20 minutos após criado;
 - [ ] O check-in só pode ser validado por administradores;
 - [ ] A academia só pode ser cadastrada por administradores;

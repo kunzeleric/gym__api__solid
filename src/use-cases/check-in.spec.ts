@@ -1,26 +1,28 @@
 import { InMemoryCheckInsRespository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { InMemoryGymsRespository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime/library'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CheckInUseCase } from './check-in'
+import { MaxDistanceError } from './errors/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
 
 let checkInsRepository: InMemoryCheckInsRespository
-let gymsRepository: InMemoryGymsRespository
+let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
-describe('Register Use Case', () => {
-  beforeEach(() => {
+describe('Check In Use Case', () => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRespository()
-    gymsRepository = new InMemoryGymsRespository()
+    gymsRepository = new InMemoryGymsRepository()
     sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
     // criação de uma academia fake antes de cada teste rodar
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'Javascript Gym',
       description: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: -25.4022114,
+      longitude: -49.2843053,
       phone: '',
     })
 
@@ -40,8 +42,6 @@ describe('Register Use Case', () => {
       userLatitude: -25.4022114,
       userLongitude: -49.2843053,
     })
-
-    console.log(checkIn.created_at)
 
     expect(checkIn.id).toEqual(expect.any(String))
   })
@@ -70,7 +70,7 @@ describe('Register Use Case', () => {
         userLatitude: -25.4022114,
         userLongitude: -49.2843053,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice in different days', async () => {
@@ -93,5 +93,25 @@ describe('Register Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on distant gym', async () => {
+    gymsRepository.items.push({
+      id: 'gym-02',
+      title: 'Javascript Gym',
+      description: '',
+      latitude: new Decimal(-25.3131634),
+      longitude: new Decimal(-49.2380334),
+      phone: '',
+    })
+
+    await expect(() =>
+      sut.execute({
+        userId: 'user-01',
+        gymId: 'gym-02',
+        userLatitude: -25.4022114,
+        userLongitude: -49.2843053,
+      }),
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
