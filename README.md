@@ -1,6 +1,7 @@
 # Gympass style app
 
-This application was developed during the SOLID module of Rocketseat's Ignite track, featuring clean code practices as well.
+This is an API was developed during the SOLID module of Rocketseat's Ignite track, featuring clean code practices as well.
+It is similar to a GymPass application, making it possible for a user to register his\her account and check-in nearby gyms, in a close-to-reality scenario.
 
 ## Functionalities
 
