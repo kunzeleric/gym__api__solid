@@ -2,6 +2,15 @@
 
 This application was developed during the SOLID module of Rocketseat's Ignite track, featuring clean code practices as well.
 
+## Functionalities
+
+- User can register an account
+- User can register gyms
+- User can check in in Gyms nearby
+- User is authenticated
+- User can search gyms based on query parameters
+- User can check check-ins metrics & history
+
 ## Installing the Project
 
 ```
