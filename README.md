@@ -1,32 +1,174 @@
 # Gympass style app
 
-Aplicativo desenvolvido durante módulo de SOLID da trilha Ignite da Rocketseat.
+This application was developed during the SOLID module of Rocketseat's Ignite track, featuring clean code practices as well.
 
-## Requisitos Funcionais
+## Installing the Project
 
-- [x] Deve ser possível cadastrar usuário;
-- [x] Deve ser possível autenticar usuário;
-- [x] Deve ser possível obter o perfil de um usuário logado;
-- [x] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
-- [x] Deve ser possível obter o histórico de check-ins de um usuário;
-- [x] Deve ser possível buscar academias próximas do usuário (até 10km);
-- [x] Deve ser possível buscar academias pelo nome;
-- [x] Deve ser possível o usuário realizar check-in em uma academia;
-- [x] Deve ser possível validar o check-in de um usuário;
-- [x] Deve ser possível cadastrar uma academia;
+```
+git clone *projet-url*
 
-## Requisitos Não Funcionais
+cd *projects-directory*
 
-- [x] A senha do usuário precisa estar criptografada;
-- [x] Os dados da aplicação precisam estar persistidos em um banco PostgresSQL;
-- [x] Todas listas de dados precisam estar paginadas com 20 items por página;
-- [x] O usuário deve ser identificado por um JWT (JSON Web Token)
+npm install
+```
 
-## Regras de Negócio
+## Load Docker Image (PostgreSQL)
 
-- [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [x] O usuário não pode fazer 2 check-ins no mesmo dia;
-- [x] O usuário não pode fazer check-in se não estiver perto da academia (100m);
-- [x] O check-in só pode ser validado em até 20 minutos após criado;
-- [x] O check-in só pode ser validado por administradores;
-- [x] A academia só pode ser cadastrada por administradores;
+*Reminder: Docker software must be installed previously.
+
+```
+docker compose up -d
+```
+
+## Functional Requirements
+
+- [x] User registration must be possible.
+- [x] User authentication must be possible.
+- [x] It must be possible to obtain the profile of a logged-in user.
+- [x] It must be possible to obtain the number of check-ins performed by the logged-in user.
+- [x] It must be possible to obtain the check-in history of a user.
+- [x] It must be possible to search for gyms near the user (up to 10km).
+- [x] It must be possible to search for gyms by name.
+- [x] The user must be able to check-in at a gym.
+- [x] Validating a user's check-in must be possible.
+- [x] It must be possible to register a gym.
+
+## Non-Functional Requirements
+
+- [x] The user's password needs to be encrypted.
+- [x] Application data must be persisted in a PostgresSQL database.
+- [x] All data lists must be paginated with 20 items per page.
+- [x] The user must be identified by a JWT (JSON Web Token).
+
+## Business Rules
+
+- [x] The user should not be able to register with a duplicate email.
+- [x] The user cannot make 2 check-ins on the same day.
+- [x] The user cannot check-in if not near the gym (100m).
+- [x] The check-in can only be validated up to 20 minutes after it is created.
+- [x] The check-in can only be validated by administrators.
+- [x] The gym can only be registered by administrators.
+
+## Routes
+
+### User
+
+#### Register User
+
+```http
+  POST /user
+```
+
+| Body Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Mandatory**. Users name |
+| `email` | `string` | **Mandatory**. Users email. |
+| `password` | `string` | **Mandatory**. Users password. |
+
+
+#### Authenticate User
+
+```http
+  POST /authenticate
+```
+
+| Body Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `string` | **Mandatory**. Users email. |
+| `password` | `string` | **Mandatory**. Users password. |
+
+#### Refresh Token
+
+```http
+  PATCH /token/refresh
+```
+
+
+#### Profile
+
+```http
+  GET /me
+```
+
+### Gym
+
+#### Create a Gym
+
+```http
+  POST /gyms
+```
+
+| Body Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `title` | `string` | **Mandatory**. Gyms title. |
+| `description` | `string` | **Mandatory**. Gyms description. |
+| `phone` | `string` | **Mandatory**. Gyms phone. |
+| `latitude` | `number` | **Mandatory**. Gyms latitude position. |
+| `longitude` | `number` | **Mandatory**.  Gyms longitude position. |
+
+#### Find Gyms
+
+```http
+  GET /gyms/search
+```
+
+| Query Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `q` | `string` | **Mandatory**. Query search field. |
+| `page` | `number` | **Mandatory**. Pagination number for search. |
+
+#### Fetch Nearby Gyms
+
+```http
+  GET /gyms/nearby
+```
+
+| Query Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `latitude` | `number` | **Mandatory**. Users latitude position. |
+| `longitude` | `number` | **Mandatory**. Users longitude position. |
+
+### Check In
+
+#### Create a Check In
+
+```http
+  POST /gyms/:gymId/check-ins
+```
+
+| Param Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `gymId` | `string` | **Mandatory**. Gym's ID that the check-in is being made in. |
+
+| Body Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `latitude` | `number` | **Mandatory**. Users latitude position. |
+| `longitude` | `number` | **Mandatory**. Users longitude position. |
+
+
+#### Validate Check In
+
+```http
+  PATCH /check-ins/:checkInId/validate
+```
+
+| Param Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `checkInId` | `string` | **Mandatory**. Check-In ID that's being validated. |
+
+#### Check-Ins History
+
+```http
+  GET /check-ins/history
+```
+
+| Query Data   | Type       | Description                           |
+| :---------- | :--------- | :---------------------------------- |
+| `page` | `number` | **Mandatory**. Pagination number to search check-ins history. |
+
+#### Check-Ins Metrics
+
+```http
+  GET /check-ins/metrics
+```
+
