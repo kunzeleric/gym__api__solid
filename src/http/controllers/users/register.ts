@@ -19,6 +19,8 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       password,
       email,
     })
+
+    return reply.status(201).send()
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })
@@ -26,6 +28,4 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
     throw error
   }
-
-  reply.status(201).send()
 }
