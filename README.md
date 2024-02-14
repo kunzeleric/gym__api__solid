@@ -12,6 +12,17 @@ It is similar to a GymPass application, making it possible for a user to registe
 - User can search gyms based on query parameters
 - User can check check-ins metrics & history
 
+## Technologies Used
+
+- Node.js
+- Typescript
+- Fastify
+- Zod
+- PostgreSQL
+- Docker
+- Vitest
+- Supertest
+
 ## Installing the Project
 
 ```
@@ -182,3 +193,11 @@ docker compose up -d
   GET /check-ins/metrics
 ```
 
+## Take Aways
+
+- Environment Variables validation with Zod
+- Build Docker compose file to run PostgreSQL image
+- Principle of inverse dependency and single responsibility
+- Automated tests through Github Actions
+- Build test environment for Vitest
+- Build application separating layers (HTTP, Repository, Use-Case)
